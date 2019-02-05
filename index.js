@@ -1,8 +1,7 @@
 require('rootpath')();
 const express = require('express');
 const app = express();
-const port = 3000;
-//process.env.PORT;
+const port = process.env.PORT;
 const path = require('path');
 const bodyParser = require('body-parser');
 const passport = require('passport');
@@ -31,6 +30,7 @@ passport.use(new facebookStrategy({
 	},
 	function(accessToken, refreshToken, profile, cb) {
 		User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+			console.log(profile);
 			return cb(err, user);
 		});
 	}
