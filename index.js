@@ -1,6 +1,8 @@
+require('rootpath')();
 const express = require('express');
 const app = express();
-const port = process.env.PORT;
+const port = 3000;
+//process.env.PORT;
 const path = require('path');
 const bodyParser = require('body-parser');
 const passport = require('passport');
@@ -28,7 +30,9 @@ passport.use(new facebookStrategy({
 		callbackURL: "https://sso1234.herokuapp.com/auth/facebook/callback"
 	},
 	function(accessToken, refreshToken, profile, cb) {
-		console.log(profile);
+		User.findOrCreate({ facebookId: profile.id }, function (err, user) {
+			return cb(err, user);
+		});
 	}
 ));
 
