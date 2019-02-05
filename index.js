@@ -25,9 +25,8 @@ passport.use(new facebookStrategy({
 		callbackURL: "https://sso1234.herokuapp.com/auth/facebook/callback"
 	},
 	function(accessToken, refreshToken, profile, cb) {
-		User.findOrCreate({ facebookId: profile.id }, function (err, user) {
-			return cb(err, user);
-		});
+		console.log(profile);
+		return ;
 	}
 ));
 
