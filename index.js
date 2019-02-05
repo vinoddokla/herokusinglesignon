@@ -22,7 +22,7 @@ const FACEBOOK_APP_ID = '333877367228716',
 passport.use(new facebookStrategy({
 		clientID: FACEBOOK_APP_ID,
 		clientSecret: FACEBOOK_APP_SECRET,
-		callbackURL: "http://localhost:3000/auth/facebook/callback"
+		callbackURL: "https://sso1234.herokuapp.com/auth/facebook/callback"
 	},
 	function(accessToken, refreshToken, profile, cb) {
 		console.log(profile);
