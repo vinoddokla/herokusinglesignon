@@ -5,6 +5,9 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const passport = require('passport');
 const facebookStrategy = require('passport-facebook');
+const db = require('_helpers/db');
+
+const User = db.User;
 
 const FACEBOOK_APP_ID = '333877367228716',
 	FACEBOOK_APP_SECRET = 'c603984f918b6402f92e075ea9065149';
@@ -25,7 +28,9 @@ passport.use(new facebookStrategy({
 		callbackURL: "https://sso1234.herokuapp.com/auth/facebook/callback"
 	},
 	function(accessToken, refreshToken, profile, cb) {
-		console.log(profile);
+		User.findOrCreate({ firstName: profile.displayName }, function (err, user) {
+			return cb(err, user);
+		});
 	}
 ));
 
