@@ -30,10 +30,9 @@ passport.use(new facebookStrategy({
 	},
 	function(accessToken, refreshToken, profile, cb) {
 		console.log(profile);
-		User.create({ facebookId: profile.id }, function (err, user) {
-			console.log('A new uxer from "%s" was inserted', user.facebookId);
+		User.create(profile, function(err, user){
 			return cb(err, user);
-		});
+		}); 
 	}
 ));
 
