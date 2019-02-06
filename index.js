@@ -43,6 +43,8 @@ app.get('/auth/facebook/callback',
 										failureRedirect: '/index' }));
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.set('view engine', 'pug');
 
