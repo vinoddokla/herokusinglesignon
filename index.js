@@ -8,20 +8,18 @@ const passport = require('passport');
 const facebookStrategy = require('passport-facebook');
 const db = require('_helpers/db');
 
-const User = db.User;
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(require('express-session')({
+	secret: 'keyboard cat',
+	resave: true,
+	saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
+const User = db.User;
 const FACEBOOK_APP_ID = '333877367228716',
 	FACEBOOK_APP_SECRET = 'c603984f918b6402f92e075ea9065149';
-
-// const facebookStrategyOPT = {
-// 	cliendID : '333877367228716',
-// 	clientSecret : 'c603984f918b6402f92e075ea9065149',
-// 	callbackURL : 'https://localhost:3000/auth/facebook/callback'
-// };
-
-// const fbCallback = function(accessToken, refreshToken, profile, cb) {
-// 	console.log(accessToken, refreshToken, profile);
-// };
 
 passport.use(new facebookStrategy({
 		clientID: FACEBOOK_APP_ID,
@@ -42,10 +40,6 @@ app.get('/auth/facebook/callback',
 	passport.authenticate('facebook', { successRedirect: '/home',
 										failureRedirect: '/index' }));
 
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(passport.initialize());
-app.use(passport.session());
-
 app.set('view engine', 'pug');
 
 app.get('/', function(req, res) {
@@ -64,4 +58,4 @@ app.post('/home', function(req, res) {
 // 	console.log(req.body);
 // });
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
+app.listen(port, () => console.log(`Single Sign On app listening on port ${port}!`));
