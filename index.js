@@ -14,6 +14,7 @@ app.use(require('express-session')({
 	resave: true,
 	saveUninitialized: true
 }));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -33,6 +34,14 @@ passport.use(new facebookStrategy({
 		}); 
 	}
 ));
+
+passport.serializeUser(function(user, done) {
+	done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+	done(null, user);
+});
 
 app.post('/', passport.authenticate('facebook'));
 
