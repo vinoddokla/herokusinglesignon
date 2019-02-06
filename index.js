@@ -59,7 +59,7 @@ app.get('/', function(req, res) {
 // 	res.render(path.join(__dirname, 'www/index'));
 // });
 
-app.post('/home', function(req, res) {
+app.get('/home', function(req, res) {
 	res.render(path.join(__dirname, 'www/home'));
 });
 
